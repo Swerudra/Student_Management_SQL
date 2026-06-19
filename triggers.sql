@@ -1,0 +1,13 @@
+DELIMITER //
+
+CREATE TRIGGER Before_Insert_Student
+BEFORE INSERT ON Student
+FOR EACH ROW
+BEGIN
+    IF NEW.Age < 18 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT='Age must be at least 18';
+    END IF;
+END //
+
+DELIMITER ;
